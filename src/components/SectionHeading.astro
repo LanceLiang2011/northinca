@@ -1,0 +1,21 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  center?: boolean;
+}
+
+const { title, subtitle, center = false } = Astro.props;
+---
+
+<div class={`mb-12 ${center ? 'text-center' : ''}`}>
+  <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-primary)] tracking-tight mb-4 relative inline-block">
+    {title}
+    <span class="absolute -bottom-2 left-0 w-1/3 h-1 bg-yellow-400 rounded-full opacity-80"></span>
+  </h2>
+  {subtitle && <p class="text-lg text-gray-600 max-w-3xl mx-auto">{subtitle}</p>}
+</div>
+
+<style>
+/* Optional specific overrides */
+</style>

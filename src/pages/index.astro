@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSwiper from '../components/HeroSwiper.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import FeaturesWrapper from '../components/react/FeaturesWrapper.astro';
+import { heroSlides, introSection } from '../data/home';
+---
+
+<BaseLayout>
+  <!-- A) Hero Swiper -->
+  <HeroSwiper slides={heroSlides} />
+
+  <!-- B) Intro Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-primary)] mb-6 tracking-tight">
+          {introSection.title}
+        </h2>
+        <p class="text-xl text-gray-600 leading-relaxed">
+          {introSection.body}
+        </p>
+      </div>
+
+      <!-- Features Cards -->
+      <FeaturesWrapper />
+    </div>
+  </section>
+</BaseLayout>

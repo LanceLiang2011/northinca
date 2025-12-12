@@ -1,0 +1,80 @@
+---
+import { heroSlides } from '../data/home';
+import HeroText from './react/HeroText';
+
+// Optional: You could pass slides as props, but data separation suggests importing specific data here or passing from parent. 
+// Task says "All UI components are presentational; they receive data via props."
+// So I should pass slides as props.
+interface Props {
+  slides?: typeof heroSlides;
+}
+
+const { slides = heroSlides } = Astro.props;
+---
+
+<div class="relative w-full h-[600px] md:h-[700px] overflow-hidden bg-gray-900 group">
+  <swiper-container
+    class="w-full h-full relative z-10"
+    pagination="true"
+    pagination-clickable="true"
+    navigation="true"
+    loop="true"
+    autoplay-delay="5000"
+    autoplay-disable-on-interaction="false"
+    speed="600"
+    effect="fade"
+    inject-styles={`
+      .swiper-button-next, .swiper-button-prev {
+        color: white;
+        background: rgba(0,0,0,0.3);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        backdrop-filter: blur(4px);
+        pointer-events: auto;
+      }
+      .swiper-pagination-bullet {
+        background: white;
+        opacity: 0.5;
+        width: 10px;
+        height: 10px;
+        pointer-events: auto;
+      }
+      .swiper-pagination-bullet-active {
+        opacity: 1;
+        background: var(--color-primary, #233a6c);
+      }
+    `}
+  >
+    {slides.map((slide) => (
+      <swiper-slide class="relative w-full h-full">
+        <!-- Background Image -->
+        <div class="absolute inset-0 bg-cover bg-center" style={`background-image: url('${slide.image}');`}>
+           <!-- Overlay Gradient -->
+           <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30"></div>
+        </div>
+
+        <!-- Content Overlay handled by React Component -->
+      </swiper-slide>
+    ))}
+  </swiper-container>
+  
+  <HeroText client:load />
+
+</div>
+
+<script>
+  // Import Swiper web component bundle
+  import { register } from 'swiper/element/bundle';
+  register();
+</script>
+
+<style>
+  /* Custom Swiper Styles */
+  swiper-container {
+    --swiper-theme-color: #fff;
+    --swiper-navigation-size: 40px;
+    --swiper-pagination-bullet-inactive-color: #999;
+    --swiper-pagination-bullet-inactive-opacity: 0.5;
+  }
+</style>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import PartnerCard from '../components/PartnerCard.astro';
+import { partners } from '../data/partners';
+---
+
+<BaseLayout title="Partners">
+  <div class="py-16 bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeading title="Our Partners" subtitle="Collaborating for global success" center />
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {partners.map(partner => (
+          <PartnerCard partner={partner} />
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

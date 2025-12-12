@@ -1,0 +1,61 @@
+---
+import type { Partner } from '../data/types';
+
+interface Props {
+  partner: Partner;
+}
+
+const { partner } = Astro.props;
+---
+
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 partner-card">
+  <div class="p-8">
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="text-2xl font-bold text-gray-900">{partner.name}</h3>
+      <!-- Logo placeholder if available -->
+      {partner.logo && <img src={partner.logo} alt={partner.name} class="h-12 w-auto" />}
+    </div>
+    
+    <div class="relative">
+      <div class="text-gray-600 leading-relaxed line-clamp-3 description-preview">
+        {partner.description}
+      </div>
+      <div class="hidden text-gray-600 leading-relaxed mt-4 description-full">
+        {partner.description}
+      </div>
+    </div>
+    
+    <button class="mt-4 text-[var(--color-primary)] font-semibold hover:underline focus:outline-none toggle-btn">
+      Read more
+    </button>
+  </div>
+</div>
+
+<script>
+  const partnerCards = document.querySelectorAll('.partner-card');
+  
+  partnerCards.forEach(card => {
+    const btn = card.querySelector('.toggle-btn');
+    const preview = card.querySelector('.description-preview');
+    const full = card.querySelector('.description-full');
+    
+    if (btn && preview && full) {
+      btn.addEventListener('click', () => {
+        const isExpanded = !full.classList.contains('hidden');
+        
+        if (isExpanded) {
+          full.classList.add('hidden');
+          preview.classList.remove('hidden');
+          btn.textContent = 'Read more';
+          preview.classList.add('line-clamp-3'); // Ensure clamp is back
+        } else {
+          full.classList.remove('hidden');
+          preview.classList.add('hidden'); // Hide preview to avoid duplicate content or just visually swap?
+          // Actually, standard way: simple unclamp or swap content. 
+          // Implementation above swaps between two divs. Simple enough.
+          btn.textContent = 'Read less';
+        }
+      });
+    }
+  });
+</script>

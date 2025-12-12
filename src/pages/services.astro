@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import { keyServices, serviceScopes } from '../data/services';
+---
+
+<BaseLayout title="Services">
+  <div class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Key Services -->
+      <div class="mb-24">
+        <SectionHeading title="Key Services" center />
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {keyServices.map(service => (
+            <FeatureCard 
+              title={service.title} 
+              description={service.description} 
+              icon={service.icon} 
+            />
+          ))}
+        </div>
+      </div>
+
+      <!-- Scope of Services -->
+      <div>
+        <SectionHeading title="Scope of Services" center />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          {serviceScopes.map(scope => (
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+              <h3 class="text-2xl font-bold text-[var(--color-primary)] mb-6 border-b border-gray-200 pb-2">
+                {scope.category}
+              </h3>
+              <ul class="space-y-3">
+                {scope.items.map(item => (
+                  <li class="flex items-center text-gray-700">
+                    <span class="mr-3 text-green-500">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>
